@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
-
-import Cookies from "universal-cookie";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import axios from "axios";
-
+import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export const Login = () => {
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [navigate, setNavigate] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -18,21 +22,22 @@ export const Login = () => {
       await axios.post('api/Authentication/login', {
         email,
         password,
+      }, {
+        withCredentials: true
       }).then((response) => {
         if(response.status === 200) {
           console.log(response.data.accessToken)
-          let accessToken = response.data.accessToken;
+          let accessToken = response?.data?.accessToken;
+          setAuth({accessToken});
           cookies.set('accessToken', accessToken, { path: '/' });
-          setNavigate(true);
+          navigate(from, { replace: true });
+        } else {
+          setError('Invalid credentials');
         }
       }).catch((error) => {
         setError('Invalid credentials');
       });
     }
-
-  if(navigate) {
-    return <Navigate to="/dashboard" />
-  }
 
   return (
       <div className="container">
