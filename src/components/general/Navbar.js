@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { getRole, removeAccessToken } from "../common/jwtCommon";
-import useAuth from "../hooks/useAuth";
+import { getRole, removeAccessToken } from "../../common/jwtCommon";
+import useAuth from "../../hooks/useAuth";
 
 export const Navbar = () => {
   const { setAuth } = useAuth();
@@ -16,7 +16,7 @@ export const Navbar = () => {
   }
 
   const homeLink = (
-      <li className="nav-item">
+      <li className="nav-item" key="home">
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -24,7 +24,7 @@ export const Navbar = () => {
   )
 
   const changeModeLink = (
-      <li>
+      <li className="nav-item" key="chmode">
         <button id="dark-mode-button" onClick={changeMode} style={{background: "transparent"}}>
           <img width={"20px"} height={"20px"} src={"/images/darkmode.png"} alt={"Dark mode icon"}/>
         </button>
@@ -32,14 +32,14 @@ export const Navbar = () => {
   )
 
   const loginLink = (
-      <li className="nav-item">
+      <li className="nav-item" key="login">
         <Link to="/login" className="nav-link">
           Login
         </Link>
       </li>
   )
   const registerLink = (
-      <li className="nav-item">
+      <li className="nav-item" key="register">
         <Link to="/register" className="nav-link">
           Register
         </Link>
@@ -47,7 +47,7 @@ export const Navbar = () => {
   )
 
   const profileLink = (
-      <li className="nav-item">
+      <li className="nav-item" key="profile">
         <Link to="/profile" className="nav-link">
           Profile
         </Link>
@@ -55,8 +55,8 @@ export const Navbar = () => {
   )
 
   const logoutLink = (
-      <li className="nav-item">
-        <a href="#" onClick={logout} className="nav-link">
+      <li className="nav-item" key="logout">
+        <a href="src/components/general/Navbar#" onClick={logout} className="nav-link">
           Logout
         </a>
       </li>
@@ -64,7 +64,7 @@ export const Navbar = () => {
 
   const studentLink = (
       <div id={"student-link"}>
-        <li className="nav-item">
+        <li className="nav-item" key="student">
           <Link to="/student" className="nav-link">
             Dashboard
           </Link>
@@ -74,7 +74,7 @@ export const Navbar = () => {
 
   const teacherLink = (
       <div id={"teacher-link"}>
-        <li className="nav-item">
+        <li className="nav-item" key="teacher">
           <Link to="/teacher" className="nav-link">
             Dashboard
           </Link>
@@ -120,7 +120,7 @@ export const Navbar = () => {
             className="collapse navbar-collapse justify-content-md-center"
             id="main-navbar"
         >
-          <ul className="navbar-nav">
+          <ul className="navbar-nav" id="navbar-list">
             <BuildNavbar/>
           </ul>
         </div>

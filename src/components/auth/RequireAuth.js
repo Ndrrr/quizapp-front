@@ -1,5 +1,5 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { getDecodedAccessToken } from "../common/jwtCommon";
+import { getDecodedAccessToken } from "../../common/jwtCommon";
 
 const RequireAuth = ({allowedRoles}) => {
   const location = useLocation();
