@@ -56,7 +56,7 @@ export const Navbar = () => {
 
   const logoutLink = (
       <li className="nav-item" key="logout">
-        <a href="src/components/general/Navbar#" onClick={logout} className="nav-link">
+        <a href="#" onClick={logout} className="nav-link">
           Logout
         </a>
       </li>

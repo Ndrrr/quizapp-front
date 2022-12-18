@@ -6,3 +6,4 @@ export { Unauthorized } from './general/Unauthorized';
 export { Missing } from './general/Missing';
 // export { Student } from './Student';
 export { Teacher } from './Teacher';
+export { Quiz } from './Quiz';

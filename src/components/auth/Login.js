@@ -26,7 +26,6 @@ export const Login = () => {
         withCredentials: true
       }).then((response) => {
         if(response.status === 200) {
-          console.log(response.data.accessToken)
           let accessToken = response?.data?.accessToken;
           setAuth({accessToken});
           cookies.set('accessToken', accessToken, { path: '/' });
