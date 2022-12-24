@@ -30,7 +30,6 @@ export const Quiz = () => {
   const [optionCount, setOptionCount] = useState(0);
   const [idkwhy, setIdkwhy] = useState(0);
 
-
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -85,14 +84,47 @@ export const Quiz = () => {
     console.log(finalIsCorrect)
   }
 
+  const comparatorDifficulty = (a, b) => {
+    if(a.difficulty === b.difficulty)
+      return a.questionText.localeCompare(b.questionText);
+    return a.difficulty - b.difficulty;
+  }
+
+  const getColorClassBasedOnDifficulty = (difficulty) => {
+    if(difficulty === 0) {
+      return "list-group-item-success";
+    } else if(difficulty === 1) {
+      return "list-group-item-warning";
+    } else {
+      return "list-group-item-danger";
+    }
+  }
+
+  const onQuestionDelete = (questionId) => {
+    questionList.splice(questionList.findIndex(q => q.id === questionId), 1);
+    setQuestionList(questionList);
+    setIdkwhy(1-idkwhy);
+    submitQuiz()
+  }
+
   const ConstructQuestionList = () => {
+    questionList.sort(comparatorDifficulty);
+    let index = 1;
     return questionList.map((question) => {
       return (
+          <div className={"d-flex"} key={`${question.id}-dv`}>
           <button key={`${question.id}`}
-                className="list-group-item list-group-item-action" onClick={() => onModalPageOpen(question.id)}
+                className={"list-group-item list-group-item-action " + getColorClassBasedOnDifficulty(question.difficulty) }
+                onClick={() => onModalPageOpen(question.id)}
                 type="button" data-toggle="modal" data-target={`#createQuestionModal`}>
-            {question.questionText}
-          </button>
+            {index++}. {question.questionText}
+          </button>&nbsp;
+            <button key={`${question.id}-del`} onClick={() => onQuestionDelete(question.id)}
+                    className={"list-group-item list-group-item-action list-group-item-danger h-25"}
+                    style={{"width":"5%"}}>Del</button>
+            <br/>
+            <br/>
+          </div>
       )
     })
   }
@@ -108,6 +140,12 @@ export const Quiz = () => {
     let answerCount = 0;
 
     for(let i = 0; i < optionCount; i++) {
+      if(questionOptions[i] === undefined) {
+        questionOptions[i] = '';
+      }
+      if(questionsIsCorrect[i] === undefined) {
+        questionsIsCorrect[i] = false;
+      }
       question.options.push({
         optionText: questionOptions[i],
         isCorrect: questionsIsCorrect[i]
@@ -146,7 +184,7 @@ export const Quiz = () => {
     window.location.reload();
   }
 
-  const onNewQuestionAdded = (e) => {
+  const onNewQuestionAdded = () => {
     const newQuestion = {
       questionText: 'new question',
       difficulty: 1,
@@ -162,6 +200,7 @@ export const Quiz = () => {
       <div className="container">
         <h1>Quiz Page</h1>
         <button type="button" className="btn btn-primary" onClick={onNewQuestionAdded}>Add Question</button>
+        <br/><br/>
         <div className="list-group">
           <ConstructQuestionList/>
 

@@ -22,8 +22,6 @@ export const Login = () => {
       await axios.post('api/Authentication/login', {
         email,
         password,
-      }, {
-        withCredentials: true
       }).then((response) => {
         if(response.status === 200) {
           let accessToken = response?.data?.accessToken;
