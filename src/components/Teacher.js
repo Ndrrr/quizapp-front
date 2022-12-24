@@ -39,9 +39,14 @@ export const Teacher = () => {
     });
   }
 
-  const toggleCollapse = (quizId) => {
+  const showCollapse = (quizId) => {
     const elem = $('#collapse-' + quizId);
-    elem.slideToggle()
+    elem.fadeIn(150)
+  }
+
+  const hideCollapse = (quizId) => {
+    const elem = $('#collapse-' + quizId);
+    elem.fadeOut(150)
   }
 
   const ConstructQuizList = () => {
@@ -49,23 +54,26 @@ export const Teacher = () => {
     return quizList.map((quiz) => {
       return (
           <div key={`${quiz.quizId}-main`}
-               className="list-group-item list-group-item-action" onClick={() => toggleCollapse(quiz.quizId)}>
+               className="list-group-item list-group-item-action"
+               onMouseEnter={() => showCollapse(quiz.quizId)}
+               onMouseLeave={() => hideCollapse(quiz.quizId)}>
             <Link className={`list-group-item list-group-item-action list-group-item-info`}
                   to={`quiz/${quiz.quizId}`}>
               {quiz.quizTitle}
             </Link>
-            <MDBCollapse className={"list-group"} id={`collapse-${quiz.quizId}`} show >
+            <span style={{"color":"#338DFF"}}><b>Available tests: {quiz.tests.length}</b></span>
+            <MDBCollapse className={"list-group"} id={`collapse-${quiz.quizId}`} >
               {quiz.tests.map((test) => {
                 return (
                 <Link key = {`${quiz.quizId}-${test.testId}`}
                       className={"list-group-item list-group-item-action list-group-item-primary"}
                       to={`quiz/${quiz.quizId}/test/${test.testId}`}>
-                >
                   {test.testTitle}
                 </Link>
                     )}
               )}
             </MDBCollapse>
+
           </div>
       )
     })
@@ -120,6 +128,7 @@ export const Teacher = () => {
       endDate: endDateObj.toISOString()
     }
 
+    console.log(newTest);
     axios.post('api/Test', newTest, {
       headers: {
         Authorization: `Bearer ${getAccessToken()}`
@@ -139,7 +148,7 @@ export const Teacher = () => {
       <div className="container">
         <h1>Teacher Page</h1>
 
-        <input name={"newQuizInput"} value={newQuizName} onChange={(e) => setNewQuizName(e.target.value)}/> &nbsp;
+        <input name={"newQuizInput"} className={"form-text"} value={newQuizName} onChange={(e) => setNewQuizName(e.target.value)}/> &nbsp;
         <button className={"btn btn-primary mb-2"} onClick={createQuiz}> Add New Quiz</button>
         &nbsp;
         <button className={"btn btn-primary mb-2"} type="button" data-toggle="modal"
@@ -149,6 +158,8 @@ export const Teacher = () => {
         <div className="list-group">
           <ConstructQuizList/>
         </div>
+
+        {/* Modal */}
         <div className="modal fade" id={`createTestModal`} tabIndex="-1" role="dialog"
              aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -250,6 +261,7 @@ export const Teacher = () => {
             </div>
           </div>
         </div>
+        {/* Modal End */}
       </div>
   )
 }
