@@ -5,6 +5,10 @@ import useAuth from "../../hooks/useAuth";
 export const Navbar = () => {
   const { setAuth } = useAuth();
 
+  function generateRandomInteger(max) {
+    return (Math.floor(Math.random() * max) + 1).toString();
+  }
+
   const logout = async () => {
     await removeAccessToken();
     setAuth({});
@@ -16,7 +20,7 @@ export const Navbar = () => {
   }
 
   const homeLink = (
-      <li className="nav-item" key="home">
+      <li className="nav-item" key={`home-${generateRandomInteger(10000)}`}>
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -24,7 +28,7 @@ export const Navbar = () => {
   )
 
   const changeModeLink = (
-      <li className="nav-item" key="chmode">
+      <li className="nav-item" key={`chmode-${generateRandomInteger(10000)}`}>
         <button id="dark-mode-button" onClick={changeMode} style={{background: "transparent"}}>
           <img width={"20px"} height={"20px"} src={"/images/darkmode.png"} alt={"Dark mode icon"}/>
         </button>
@@ -32,14 +36,14 @@ export const Navbar = () => {
   )
 
   const loginLink = (
-      <li className="nav-item" key="login">
+      <li className="nav-item" key={`login-${generateRandomInteger(10000)}`}>
         <Link to="/login" className="nav-link">
           Login
         </Link>
       </li>
   )
   const registerLink = (
-      <li className="nav-item" key="register">
+      <li className="nav-item" key={`register-${generateRandomInteger(10000)}`}>
         <Link to="/register" className="nav-link">
           Register
         </Link>
@@ -47,7 +51,7 @@ export const Navbar = () => {
   )
 
   const profileLink = (
-      <li className="nav-item" key="profile">
+      <li className="nav-item" key={`profile-${generateRandomInteger(10000)}`}>
         <Link to="/profile" className="nav-link">
           Profile
         </Link>
@@ -55,7 +59,7 @@ export const Navbar = () => {
   )
 
   const logoutLink = (
-      <li className="nav-item" key="logout">
+      <li className="nav-item" key={`logout-${generateRandomInteger(10000)}`}>
         <a href="#" onClick={logout} className="nav-link">
           Logout
         </a>
@@ -64,7 +68,7 @@ export const Navbar = () => {
 
   const studentLink = (
       <div id={"student-link"}>
-        <li className="nav-item" key="student">
+        <li className="nav-item" key={`student-${generateRandomInteger(10000)}`}>
           <Link to="/student" className="nav-link">
             Dashboard
           </Link>
@@ -74,7 +78,7 @@ export const Navbar = () => {
 
   const teacherLink = (
       <div id={"teacher-link"}>
-        <li className="nav-item" key="teacher">
+        <li className="nav-item" key={`teacher-${generateRandomInteger(10000)}`}>
           <Link to="/teacher" className="nav-link">
             Dashboard
           </Link>
