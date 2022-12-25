@@ -4,7 +4,8 @@ export { Login } from './auth/Login';
 export { Layout } from './general/Layout';
 export { Unauthorized } from './general/Unauthorized';
 export { Missing } from './general/Missing';
-// export { Student } from './Student';
+export { Student } from './Student';
 export { Teacher } from './Teacher';
 export { Quiz } from './Quiz';
 export { Test } from './Test'
+export { TakeTest } from './TakeTest'

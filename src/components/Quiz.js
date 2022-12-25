@@ -67,7 +67,6 @@ export const Quiz = () => {
   const onModalPageOpen = (questionId) => {
     setQuestionId(questionId);
     const question = questionList.find(q => q.id === questionId);
-    console.log(question);
     let finalOptions = [];
     for(let i = 0; i < question.options.length; i++) {
       finalOptions.push(question.options[i].optionText);
@@ -81,7 +80,6 @@ export const Quiz = () => {
     setQuestionText(question.questionText);
     setQuestionDifficulty(reverseDifficulty[question.difficulty]);
     setOptionCount(question.options.length);
-    console.log(finalIsCorrect)
   }
 
   const comparatorDifficulty = (a, b) => {
@@ -131,10 +129,11 @@ export const Quiz = () => {
 
   const onQuestionSubmit = (e) => {
     e.preventDefault()
+    console.log("starting modify");
     const question = {
       questionText: questionText,
       difficulty: difficulty[questionDifficulty],
-      type: 0,
+      type: 2,
       options: []
     }
     let answerCount = 0;
@@ -154,6 +153,7 @@ export const Quiz = () => {
         answerCount++;
       }
     }
+    console.log(answerCount)
     if(answerCount === 0) {
       question.type = 2;
     } else if(answerCount === 1) {
@@ -188,7 +188,7 @@ export const Quiz = () => {
     const newQuestion = {
       questionText: 'new question',
       difficulty: 1,
-      type: 0,
+      type: 2,
       options: []
     }
     questionList.push(newQuestion);
