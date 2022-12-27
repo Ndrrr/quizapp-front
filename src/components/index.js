@@ -9,3 +9,4 @@ export { Teacher } from './Teacher';
 export { Quiz } from './Quiz';
 export { Test } from './Test'
 export { TakeTest } from './TakeTest'
+export { CheckAnonymousTake } from './CheckAnonymousTake'

@@ -4,7 +4,19 @@ import RequireAuth from "./components/auth/RequireAuth";
 import { Component } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
-import { Register, Login, Layout, Unauthorized, Missing, Student, Teacher, Quiz, Test, TakeTest } from "./components";
+import {
+  Register,
+  Login,
+  Layout,
+  Unauthorized,
+  Missing,
+  Student,
+  Teacher,
+  Quiz,
+  Test,
+  TakeTest,
+  CheckAnonymousTake
+} from "./components";
 
 class App extends Component {
   render() {
@@ -32,6 +44,7 @@ class App extends Component {
                 </Route>
 
                 <Route element={<RequireAuth allowedRoles={["Teacher"]}/>}>
+                  <Route path="/teacher/quiz/:quizId/test/:testId/check/:anonymousId" element={<CheckAnonymousTake/>}/>
                   <Route path="/teacher/quiz/:quizId/test/:testId" element={<Test/>}/>
                   <Route path="/teacher/quiz/:id" element={<Quiz/>}/>
                   <Route path="/teacher/" element={<Teacher/>}/>
