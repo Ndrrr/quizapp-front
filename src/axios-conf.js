@@ -1,3 +1,3 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5246';
+axios.defaults.baseURL = 'https://api.communitx.me';

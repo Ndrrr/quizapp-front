@@ -54,8 +54,8 @@ export const Student = () => {
       return (
         <tr key={take.id}>
           <td>{take.testTitle}</td>
-          <td>{take.successRate}</td>
-          <td>{take.score}</td>
+          <td>{Math.round(take.successRate)}</td>
+          <td>{Math.round(take.score*100)/100}</td>
         </tr>
       )
     })

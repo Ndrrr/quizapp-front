@@ -55,7 +55,7 @@ export const CheckAnonymousTake = () => {
     scoreByQuestion.forEach((value, key) => {
       data.marks.push({
         id: key,
-        score: Math.round(value*10)
+        score: Math.round(value)
       })
     });
 
@@ -80,10 +80,22 @@ export const CheckAnonymousTake = () => {
             <h3>{index+1}. {anonymousQuestion.questionText}</h3>
             <h4>- {anonymousQuestion.studentAnswer}</h4>
             <label htmlFor={`${anonymousQuestion.takeQuestionId}-reviewed`}>Score: </label> &nbsp;
-            <input name={`${anonymousQuestion.takeQuestionId}-reviewed`}
-                   type={"number"} step={"0.1"} min={"0"} max={"1"}
+            <select name={`${anonymousQuestion.takeQuestionId}-reviewed`}
                    onChange={(e) => {scoreByQuestion.set(anonymousQuestion.takeQuestionId, e.target.value)}}
-            />
+                     defaultValue={anonymousQuestion.score}>
+            >
+              <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
           </div>
       )
     })
